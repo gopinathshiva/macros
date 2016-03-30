@@ -5,7 +5,7 @@ var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','apla
 'fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda','giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18','industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets','myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle','shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
 'voylla','yepme'];
 
-var startStore = '';
+var startStore = 'faballey';
 var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf(startStore):0;
 
 var urls = [];
@@ -99,7 +99,7 @@ for(var j = startId ; j <= urls.length; j++){
 				requiredCategories+=cat_text+',';
 			}
 		}
-		requiredCategories = requiredCategories.substr(0,requiredCategories.length-2);
+		requiredCategories = requiredCategories.substr(0,requiredCategories.length-1);
 		categoryDatas.push(requiredCategories);
 	}
 
