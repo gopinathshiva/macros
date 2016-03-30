@@ -1,29 +1,24 @@
 var macro = '';
 var filterImage = "FILTER TYPE=IMAGES STATUS=ON "+"\n";
-// var urls = ["http://www.grabon.in/bluestone-coupons/","http://www.grabon.in/bookmyflowers-coupons/",
-// "http://www.grabon.in/candere-coupons/","http://www.grabon.in/cardekho-coupons/","http://www.grabon.in/chumbak-coupons/","http://www.grabon.in/dailyobjects-coupons/",
-// "http://www.grabon.in/ebay-coupons/","http://www.grabon.in/evok-coupons/","http://www.grabon.in/excitinglives-coupons/","http://www.grabon.in/ezone-coupons/","http://www.grabon.in/faballey-coupons/",
-// "http://www.grabon.in/fabfurnish-coupons/","http://www.grabon.in/fernsnpetals-coupons/","http://www.grabon.in/floweraura-coupons/","http://www.grabon.in/flyingmachine-coupons/","http://www.grabon.in/foodpanda-coupons/",
-// "http://www.grabon.in/giftalove-coupons/","http://www.grabon.in/giftease-coupons/","http://www.grabon.in/giftsbymeeta-coupons/","http://www.grabon.in/greendust-coupons/","http://www.grabon.in/happilyunmarried-coupons/",
-// "http://www.grabon.in/healthgenie-coupons/","http://www.grabon.in/healthkart-coupons/","http://www.grabon.in/homeshop18-coupons/","http://www.grabon.in/industrybuying-coupons/","http://www.grabon.in/infibeam-coupons/","http://www.grabon.in/jockey-coupons/","http://www.grabon.in/koovs-coupons/",
-//"http://www.grabon.in/lenskart-coupons/","http://www.grabon.in/limeroad-coupons/","http://www.grabon.in/mobikwik-coupons/","http://www.grabon.in/mybustickets-coupons/"];
-
-var urls = ["http://www.grabon.in/myflowertree-coupons/","http://www.grabon.in/naaptol-coupons/","http://www.grabon.in/naturesbasket-coupons/","http://www.grabon.in/nykaa-coupons/","http://www.grabon.in/ordervenue-coupons/",
-"http://www.grabon.in/oyorooms-coupons/","http://www.grabon.in/printland-coupons/","http://www.grabon.in/printvenue-coupons/","http://www.grabon.in/purplle-coupons/","http://www.grabon.in/shopclues-coupons/",
-"http://www.grabon.in/stalkbuylove-coupons/","http://www.grabon.in/syberplace-coupons/","http://www.grabon.in/thegudlook-coupons/","http://www.grabon.in/thomascook-coupons/","http://www.grabon.in/ticketgoose-coupons/",
-"http://www.grabon.in/tolexo-coupons/","http://www.grabon.in/travelkhana-coupons/","http://www.grabon.in/voylla-coupons/","http://www.grabon.in/yepme-coupons/"];
-
-//var storenames = ['bluestone','bookmyflowers','candere','cardekho','chumbak','dailyobjects','ebay','evok','excitinglives','ezone','faballey',
-//'fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda','giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18','industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets'];
-
-var storenames = ['myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle','shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
+var siteurl = 'http://www.grabon.in/';
+var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','aplava','archies','askmegrocery','askmebazaar','beingjuliet','bluestone','bookmyflowers','candere','cardekho','chumbak','dailyobjects','ebay','evok','excitinglives','ezone','faballey',
+'fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda','giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18','industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets','myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle','shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
 'voylla','yepme'];
+
+var startStore = '';
+var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf('dailyobjects'):0;
+
+var urls = [];
+
+for(var i in storenames){
+	urls.push(siteurl+storenames[i]+'-coupons/');
+}
 
 var url = '',storename = '';
 
 var sitename = 'grabon';
 
-for(var j = 12 ; j <= urls.length; j++){
+for(var j = startId ; j <= urls.length; j++){
 
 	var dateTime = new Date().toLocaleString();
 	dateTime = dateTime.split(' ').join('');
@@ -118,7 +113,7 @@ for(var j = 12 ; j <= urls.length; j++){
 		macro+="ADD !EXTRACT URL"+"\n";
 		macro += "SAVEAS TYPE=EXTRACT FOLDER=* FILE="+sitename+"-"+storename+"-urls-"+dateTime+".csv"+"\n";
 		iimPlay(macro);
-			
+
 		for(var i=1;i<=offerCount;i++){
 			macro = "CODE:";
 			macro += "WAIT SECONDS=1"+"\n";
@@ -170,6 +165,7 @@ for(var j = 12 ; j <= urls.length; j++){
 				macro += "TAB CLOSEALLOTHERS"+"\n";
 				macro += "WAIT SECONDS=1"+"\n";
 			}
+
 			macro += "SAVEAS TYPE=EXTRACT FOLDER=* FILE="+sitename+"-"+storename+"-urls-"+dateTime+".csv"+"\n";
 			iimPlay(macro);
 		}

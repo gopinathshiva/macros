@@ -1,11 +1,10 @@
 var macro = '';
 var filterImage = "FILTER TYPE=IMAGES STATUS=ON "+"\n";
 
-var csvfiles = ['grabon-stalkbuylove-urls-17_1_2016-3_41_00AM','grabon-thegudlook-urls-17_1_2016-5_38_06AM','grabon-thomascook-urls-17_1_2016-5_41_21AM','grabon-ticketgoose-urls-17_1_2016-5_42_55AM',
-'grabon-tolexo-urls-17_1_2016-5_43_26AM','grabon-travelkhana-urls-17_1_2016-5_52_35AM','grabon-voylla-urls-17_1_2016-5_54_04AM'];
+var csvfiles = ['grabon-thegudlook-urls-3_30_2016-9_02_38AM'];
 
-var affBtnIDS = ['230','907','959','98','1670','1016','1686'];
-var offerCounts= [15,17,12,5,66,10,18];
+var affBtnIDS = ['907'];
+var offerCounts= [9];
 
 var sitename = 'grabon';
 
@@ -17,7 +16,6 @@ for(var j = 0; j < csvfiles.length; j++){
 	dateTime = dateTime.split(' ').join('');
 	dateTime = dateTime.replace(',','-');
 
-	
 	var offerCount = offerCounts[j];
 	var csvfile = csvfiles[j];
 
@@ -46,23 +44,27 @@ for(var j = 0; j < csvfiles.length; j++){
 	for(var i=2;i<=offerCount;i++){
 		var macro ="CODE:";
 
-		macro += "TAB T=1"+"\n";
+		//macro += "TAB T=1"+"\n";
+
+		//macro += "SET !SINGLESTEP YES "+"\n";
 
 		macro += "SET !DATASOURCE "+csvfile+".csv"+"\n";
 
 		iimDisplay("Generating Affiliate link no:"+i);
 
 		macro += "SET !LOOP "+i+"\n";
-		
+
 		macro += "SET !DATASOURCE_LINE {{!LOOP}}"+"\n";
 
 		macro += "FRAME F=2"+"\n";
 
-		macro += "TAG POS=1 TYPE=SELECT ATTR=NAME:offer_id CONTENT=%"+affBtnID+"\n";
+		macro += "TAG POS=1 TYPE=SELECT ATTR=ID:offer_id CONTENT=%"+affBtnID+"\n";
 
-		macro += "TAG POS=1 TYPE=INPUT:TEXT ATTR=NAME:website_link CONTENT={{!COL7}}"+"\n";
+		//macro += 'SET !VAR1 EVAL("var url=\"{{!COL7}}\"; var id = url.indexOf(\"?utm_source\"); url = url.substr(0,id) ); ")'+'\n';
 
-		macro += "TAG POS=1 TYPE=BUTTON:SUBMIT ATTR=TXT:Add"+"\n";
+		macro += "TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:website_link CONTENT={{!COL7}}"+"\n";
+
+		macro += "TAG POS=1 TYPE=BUTTON ATTR=TXT:Add"+"\n";
 
 		macro += "ADD !EXTRACT {{!COL1}}"+"\n";
 
