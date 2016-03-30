@@ -6,7 +6,7 @@ var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','apla
 'voylla','yepme'];
 
 var startStore = '';
-var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf('dailyobjects'):0;
+var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf(startStore):0;
 
 var urls = [];
 var categoryObj = {};
@@ -143,7 +143,7 @@ for(var j = startId ; j <= urls.length; j++){
 			iimSet('type',offerTypes[i-1]);
 			iimSet('expiry',offerExpriy[i-1]);
 			iimSet('code',codes[i-1]);
-			iimSet('categories',categoryDatas[i-1]);			
+			iimSet('categories',categoryDatas[i-1]);
 
 			macro += "ADD !EXTRACT {{index}}"+"\n";
 			macro += "WAIT SECONDS=1"+"\n";
