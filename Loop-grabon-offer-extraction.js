@@ -5,7 +5,7 @@ var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','apla
 'fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda','giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18','industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets','myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle','shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
 'voylla','yepme'];
 
-var startStore = 'faballey';
+var startStore = 'fabfurnish',offerStart = 1;
 var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf(startStore):0;
 
 var urls = [];
@@ -63,15 +63,21 @@ for(var j = startId ; j <= urls.length; j++){
 	  return month + '/' + day + '/' + year;
 	}
 
-	for(var i=1;i<=offerCount;i++){
+	for(var i=offerStart;i<=offerCount;i++){
 		var offerObject = offerItems[i-1];
 		var description = offerObject.children[1].children[1].textContent
 		var title = offerObject.children[1].children[0].textContent;
-		var expiryDate = offerObject.children[1].children[2].children[0].textContent;
+		var expiryDate;
+		if(!offerObject.children[1].children[2].children[0]){
+			expiryDate = new Date();
+			expiryDate = expiryDate.setDate(expiryDate.getDate()+14);
+		}else{
+			expiryDate = offerObject.children[1].children[2].children[0].textContent;
+			expiryDate = expiryDate.trim();
+			expiryDate = expiryDate.replace('Ends on ','');
+		}
+		
 		var categories = offerObject.getAttribute('data-category');
-
-		expiryDate = expiryDate.trim();
-		expiryDate = expiryDate.replace('Ends on ','');
 
 		expiryDate = new Date(expiryDate);
 		expiryDate = getFormattedDate(expiryDate);
@@ -126,7 +132,7 @@ for(var j = startId ; j <= urls.length; j++){
 		macro += "SAVEAS TYPE=EXTRACT FOLDER=* FILE="+sitename+"-"+storename+"-urls-"+dateTime+".csv"+"\n";
 		iimPlay(macro);
 
-		for(var i=1;i<=offerCount;i++){
+		for(var i=offerStart;i<=offerCount;i++){
 			macro = "CODE:";
 			macro += "WAIT SECONDS=1"+"\n";
 			//macro += " SET !SINGLESTEP YES "+"\n";
