@@ -1,11 +1,21 @@
 var macro = '';
 var filterImage = "FILTER TYPE=IMAGES STATUS=ON "+"\n";
+var clear = "CLEAR"+"\n";
 var siteurl = 'http://www.grabon.in/';
-var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','aplava','archies','askmegrocery','askmebazaar','beingjuliet','bluestone','bookmyflowers','candere','cardekho','chumbak','dailyobjects','ebay','evok','excitinglives','ezone','faballey',
-'fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda','giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18','industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets','myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle','shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
-'voylla','yepme'];
+// var storenames = ['1mg','abof','ace2three','amazon','americanswan','amzer','aplava','archies','askmegrocery','askmebazaar',
+// 'beingjuliet','bluestone','bookmyflowers','candere','cardekho','chumbak','dailyobjects','ebay','evok',
+// 'excitinglives','ezone','faballey','fabfurnish','fernspetals','floweraura','flyingmachine','foodpanda',
+// 'giftalove','giftease','giftbymeeta','greendust','happilyunmarried','healthgenie','healthkart','homeshop18',
+// 'industrybuying','infibeam','jockey','koovs','lenskart','limeroad','mobikwik','mybustickets',
+// 'myflowertree','naaptol','naturesbasket','nykaa','ordervenue','oyorooms','printland','printvenue','purplle',
+// 'shopclues','stalkbuylove','syberplace','thegudlook','thomascook','ticketgoose','tolexo','travelkhana',
+// 'voylla','yepme','paytm','flipkart','snapdeal','freecharge','jabong'];
 
-var startStore = 'fabfurnish',offerStart = 1;
+var storenames = ['makemytrip','pepperfry','zivame','vistaprint','trendin','clovia','wonderchef','fernsnpetals',
+'suratdiamond','zovi','indiangiftsportal','expedia','indiareads','shopnineteen','kapkids',
+'giftsbymeeta','fabindia','agoda','wearyourshine','kazo','firstcry','sendmygift'];
+
+var startStore = 'trendin',offerStart = 1;
 var startId = (storenames.indexOf(startStore)>=0)?storenames.indexOf(startStore):0;
 
 var urls = [];
@@ -32,6 +42,7 @@ for(var j = startId ; j <= urls.length; j++){
 	macro = '';
 
 	macro += "CODE:";
+	macro += clear;
 	macro += "VERSION BUILD=10022823"+"\n";
 	macro += "TAB T=1"+"\n";
 	macro += "TAB CLOSEALLOTHERS"+"\n";
@@ -76,7 +87,7 @@ for(var j = startId ; j <= urls.length; j++){
 			expiryDate = expiryDate.trim();
 			expiryDate = expiryDate.replace('Ends on ','');
 		}
-		
+
 		var categories = offerObject.getAttribute('data-category');
 
 		expiryDate = new Date(expiryDate);
@@ -119,6 +130,7 @@ for(var j = startId ; j <= urls.length; j++){
 
 		macro += "TAB T=1"+"\n";
 		macro += "TAB CLOSEALLOTHERS"+"\n";
+		macro += clear;
 		macro += filterImage;
 		macro += "URL GOTO="+url+"\n";
 		macro+="ADD !EXTRACT INDEX"+"\n";
@@ -134,12 +146,13 @@ for(var j = startId ; j <= urls.length; j++){
 
 		for(var i=offerStart;i<=offerCount;i++){
 			macro = "CODE:";
+			macro += clear;
 			macro += "WAIT SECONDS=1"+"\n";
 			//macro += " SET !SINGLESTEP YES "+"\n";
 			macro += "SET !ERRORIGNORE YES"+"\n";
 			macro += filterImage;
 			iimSet("i",i);
-			iimDisplay('offerType:'+offerTypes[i-1]+" offerTitle:"+offerTitles[i-1]+" on link no:"+i);
+			iimDisplay('offerType:'+offerTypes[i-1]+" offerTitle:"+offerTitles[i-1]+" on link no:"+i+"/"+offerCount);
 			macro += "SET !TIMEOUT_STEP 2"+"\n";
 			macro += "URL GOTO="+url+"\n";
 			macro += "SET !EXTRACT NULL"+"\n";
